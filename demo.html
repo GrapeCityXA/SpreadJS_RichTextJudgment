@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <title>grapecity_spreadJS_demo</title>
+    <script src="jquery_3.1.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="gc.spread.sheets.excel2013white.14.2.2.css" type="text/css">
+    <script src="gc.spread.sheets.all.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.excelio.14.2.2.min.js" type="text/javascript"></script>
+    <script src="https://cdn.grapecity.com.cn/spreadjs/scripts/FileSaver.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.resources.zh.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.print.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.pdf.14.2.2.min.js" type="text/javascript"></script>
+    <script src="gc.spread.sheets.charts.14.2.2.min.js" type="text/javascript"></script>
+    <script src="v14.js" type="text/javascript"></script>
+    <style type="text/css">
+        #ss{height:400px;width:100%}
+        p{
+            text-align: #336699;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="log"></div>
+    <p>判断当前单元格是否为富文本格式</p>
+    <div id="ss"></div>
+    <script type="text/javascript">
+        GC.Spread.Common.CultureManager.culture('zh-cn');
+        var spread = new GC.Spread.Sheets.Workbook(document.getElementById('ss'))
+        var sheet = spread.sheets[0]
+        sheet.setValue(0,2,{richText:[{style:{font:'bold 12px Arial'},text:'SpreadJS'}]}, GC.Spread.Sheets.SheetArea.viewport);
+            sheet.setValue(1,2,{richText:[{style:{font:'bold 12px Arial'},text:'javascript'}]}, GC.Spread.Sheets.SheetArea.viewport);
+            sheet.setValue(2,2,{richText:[{style:{font:'bold 12px Arial'},text:'css'}]}, GC.Spread.Sheets.SheetArea.viewport);
+            sheet.setValue(3,2,'hello')
+        
+        sheet.bind(GC.Spread.Sheets.Events.CellDoubleClick, function(sender, args) {
+            var col = args.col;
+            var row = args.row;
+            var rich = sheet.getValue(row,col,GC.Spread.Sheets.SheetArea.viewport, GC.Spread.Sheets.ValueType.richText);
+            if (rich.richText) {
+                if (rich.richText.length > 0) {
+                    alert('富文本')
+                }
+                return
+            }else{
+                alert('非富文本')
+            }
+        })
+    </script>
+</body>
+
+</html>
