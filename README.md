@@ -1,0 +1,2 @@
+# SpreadJS_RichTextJudgment
+判断当前单元格是否为富文本
